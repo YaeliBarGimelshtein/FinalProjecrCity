@@ -38,9 +38,14 @@ public class CharacterAiming : MonoBehaviour
             aimLayer.weight -= Time.deltaTime / aimDuration;
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if(Input.GetKeyDown(KeyCode.Mouse1)) // and weight > 0
         {
             weapon.StartFiring();
+        }
+
+        if(weapon.isFiring)
+        {
+            weapon.UpdateFiring(Time.deltaTime);
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse1))
