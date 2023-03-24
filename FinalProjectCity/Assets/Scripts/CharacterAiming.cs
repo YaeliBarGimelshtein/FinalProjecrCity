@@ -29,16 +29,12 @@ public class CharacterAiming : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if(aimLayer)
         {
-            aimLayer.weight += Time.deltaTime / aimDuration;
-        }
-        else
-        {
-            aimLayer.weight -= Time.deltaTime / aimDuration;
+            aimLayer.weight = 1.0f;
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1) && aimLayer.weight > 0) 
+        if(Input.GetKeyDown(KeyCode.Mouse1)) 
         {
             weapon.StartFiring();
         }
