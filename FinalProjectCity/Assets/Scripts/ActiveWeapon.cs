@@ -7,6 +7,7 @@ public class ActiveWeapon : MonoBehaviour
 {
     public Transform crossHairTarget;
     public Rig handIk;
+    public Transform weaponParent;
     RaycastWeapon weapon;
 
     // Start is called before the first frame update
@@ -50,6 +51,10 @@ public class ActiveWeapon : MonoBehaviour
     {
         weapon = newWeapon;
         weapon.raycastDestenation = crossHairTarget;
+        weapon.transform.parent = weaponParent;
+        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localRotation = Quaternion.identity;
+
         handIk.weight = 1.0f;
     }
 }
