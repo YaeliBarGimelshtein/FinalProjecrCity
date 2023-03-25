@@ -8,8 +8,7 @@ public class CharacterAiming : MonoBehaviour
     public float turnSpeed = 15f;
     public float aimDuration = 0.3f;
     private Camera mainCamera;
-    public Rig aimLayer;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +16,7 @@ public class CharacterAiming : MonoBehaviour
         mainCamera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
+
     }
     
     // Update is called once per frame
@@ -26,12 +25,5 @@ public class CharacterAiming : MonoBehaviour
         float yawCamera = mainCamera.transform.rotation.eulerAngles.y;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
     }
-
-    private void Update()
-    {
-        if(aimLayer)
-        {
-            aimLayer.weight = 1.0f;
-        }
-    }
+    
 }

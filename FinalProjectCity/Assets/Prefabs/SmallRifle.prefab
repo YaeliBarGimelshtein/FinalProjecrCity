@@ -28923,7 +28923,7 @@ MonoBehaviour:
   - {fileID: 4372223684144425728}
   hitEffect: {fileID: 4372903667799360827}
   tracerEffect: {fileID: 2670308020464420087, guid: 38fcc15ab6555be41b7f0165c57f0080, type: 3}
-  weaponAnimation: {fileID: 7400000, guid: a17175ff99bea2e42820f468ea2a900f, type: 2}
+  weaponName: rifle
   raycastOrigin: {fileID: 4498259643171063436}
   raycastDestenation: {fileID: 0}
 --- !u!1001 &4498259644816558023

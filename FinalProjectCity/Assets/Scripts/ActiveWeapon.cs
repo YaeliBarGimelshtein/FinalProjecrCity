@@ -11,17 +11,14 @@ public class ActiveWeapon : MonoBehaviour
     public Transform weaponParent;
     public Transform weaponLeftGrip;
     public Transform weaponRightGrip;
+    public Animator rigController;
 
     RaycastWeapon weapon;
-    Animator animator;
-    AnimatorOverrideController overrides;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        overrides = animator.runtimeAnimatorController as AnimatorOverrideController;
-
         RaycastWeapon existingWeapon = GetComponentInChildren<RaycastWeapon>();
         if (existingWeapon)
         {
@@ -34,7 +31,7 @@ public class ActiveWeapon : MonoBehaviour
     {
         if(weapon)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse1) && !GetIsHolstered())
             {
                 weapon.StartFiring();
             }
@@ -49,12 +46,14 @@ public class ActiveWeapon : MonoBehaviour
             {
                 weapon.StopFiring();
             }
+
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                bool isHolstered = GetIsHolstered();
+                rigController.SetBool("holster_weapon", !isHolstered);
+            }
         }
-        else
-        {
-            handIk.weight = 0.0f;
-            animator.SetLayerWeight(1, 0.0f);
-        }
+        
     }
 
     public void Equip(RaycastWeapon newWeapon)
@@ -68,26 +67,11 @@ public class ActiveWeapon : MonoBehaviour
         weapon.transform.parent = weaponParent;
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
-
-        handIk.weight = 1.0f;
-        animator.SetLayerWeight(1, 1.0f);
-        Invoke(nameof(SetAnimationDelayed), 0.001f);
+        rigController.Play("equip_" + weapon.weaponName);
     }
-
-    void SetAnimationDelayed()
+    
+    private bool GetIsHolstered()
     {
-        overrides["weapon_anim_empty"] = weapon.weaponAnimation;
-    }
-
-    [ContextMenu("Save weapon pose")]
-    void SaveWeaponPose()
-    {
-        GameObjectRecorder recorder = new GameObjectRecorder(gameObject);
-        recorder.BindComponentsOfType<Transform>(weaponParent.gameObject, false);
-        recorder.BindComponentsOfType<Transform>(weaponLeftGrip.gameObject, false);
-        recorder.BindComponentsOfType<Transform>(weaponRightGrip.gameObject, false);
-        recorder.TakeSnapshot(0.0f);
-        recorder.SaveToClip(weapon.weaponAnimation);
-        UnityEditor.AssetDatabase.SaveAssets();
+        return rigController.GetBool("holster_weapon");
     }
 }
