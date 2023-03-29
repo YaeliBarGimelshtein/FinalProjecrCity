@@ -28914,10 +28914,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db88cb35a0b1b5540a3ee0c1b2968986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlot: 0
   isFiring: 0
   fireRate: 25
   bulletSpeed: 1000
   bulletDrop: 300
+  maxBounces: 3
   muzzleFlash:
   - {fileID: 4371943625665080230}
   - {fileID: 4372223684144425728}
