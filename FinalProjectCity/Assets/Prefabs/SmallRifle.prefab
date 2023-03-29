@@ -28875,6 +28875,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4498259643706676794}
   - component: {fileID: 4498259643706676795}
+  - component: {fileID: -2851071219402017525}
+  - component: {fileID: 6293844249647012352}
   m_Layer: 0
   m_Name: SmallRifle
   m_TagString: Untagged
@@ -28919,7 +28921,7 @@ MonoBehaviour:
   fireRate: 25
   bulletSpeed: 1000
   bulletDrop: 300
-  maxBounces: 3
+  maxBounces: 1
   muzzleFlash:
   - {fileID: 4371943625665080230}
   - {fileID: 4372223684144425728}
@@ -28928,6 +28930,83 @@ MonoBehaviour:
   weaponName: rifle
   raycastOrigin: {fileID: 4498259643171063436}
   raycastDestenation: {fileID: 0}
+  recoil: {fileID: 0}
+--- !u!114 &-2851071219402017525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498259643706676793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9afbce852256c342a510579d66b4c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  cameraShake: {fileID: 0}
+  recoilPattern:
+  - {x: 5, y: 5}
+  - {x: 2, y: 5}
+  - {x: -1, y: 5}
+  - {x: -4, y: 5}
+  - {x: -1, y: 5}
+  - {x: 2, y: 5}
+  - {x: 5, y: 5}
+  duration: 0.1
+--- !u!114 &6293844249647012352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498259643706676793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 2
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.2
+    m_ImpulseType: 3
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 11400000, guid: fc42c434de7fe6b41bbf59e4fecf38ec, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1001 &4498259644816558023
 PrefabInstance:
   m_ObjectHideFlags: 0
