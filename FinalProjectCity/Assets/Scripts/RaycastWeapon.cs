@@ -24,6 +24,9 @@ public class RaycastWeapon : MonoBehaviour
     public TrailRenderer tracerEffect;
     public string weaponName;
 
+    public int ammoCount;
+    public int clipSize;
+
     public Transform raycastOrigin;
     public Transform raycastDestenation;
     public WeaponRecoil recoil;
@@ -138,6 +141,12 @@ public class RaycastWeapon : MonoBehaviour
 
     private void FireBullet()
     {
+        if(ammoCount <= 0)
+        {
+            return;
+        }
+        ammoCount--;
+
         foreach (var prticale in muzzleFlash)
         {
             prticale.Emit(1);
