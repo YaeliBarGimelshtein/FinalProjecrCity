@@ -12,6 +12,7 @@ public class RaycastWeapon : MonoBehaviour
         public TrailRenderer tracer;
     }
 
+    public ActiveWeapon.WeaponSlot weaponSlot;
     public bool isFiring = false;
     public int fireRate = 25;
     public float bulletSpeed = 1000.0f;
@@ -123,5 +124,24 @@ public class RaycastWeapon : MonoBehaviour
     public void StopFiring()
     {
         isFiring = false;
+    }
+
+    public void UpdateWeapon(float deltaTime, bool isHolstered)
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !isHolstered)
+        {
+            StartFiring();
+        }
+
+        if (isFiring)
+        {
+            UpdateFiring(Time.deltaTime);
+        }
+        UpdateBullets(Time.deltaTime);
+
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            StopFiring();
+        }
     }
 }

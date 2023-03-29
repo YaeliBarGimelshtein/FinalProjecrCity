@@ -6,13 +6,16 @@ using UnityEditor.Animations;
 
 public class ActiveWeapon : MonoBehaviour
 {
-    public Transform crossHairTarget;
-    public Rig handIk;
-    public Transform weaponParent;
-    public Transform weaponLeftGrip;
-    public Transform weaponRightGrip;
-    public Animator rigController;
+    public enum  WeaponSlot
+    {
+        Primary = 0,
+        Secondary = 1
+    }
 
+    public Transform crossHairTarget;
+    public Animator rigController;
+    public Transform[] weaponSlots;
+    
     RaycastWeapon weapon;
     
 
@@ -31,40 +34,25 @@ public class ActiveWeapon : MonoBehaviour
     {
         if(weapon)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1) && !GetIsHolstered())
-            {
-                weapon.StartFiring();
-            }
-
-            if (weapon.isFiring)
-            {
-                weapon.UpdateFiring(Time.deltaTime);
-            }
-            weapon.UpdateBullets(Time.deltaTime);
-
-            if (Input.GetKeyUp(KeyCode.Mouse1))
-            {
-                weapon.StopFiring();
-            }
-
+            weapon.UpdateWeapon(Time.deltaTime, GetIsHolstered());
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
                 bool isHolstered = GetIsHolstered();
                 rigController.SetBool("holster_weapon", !isHolstered);
             }
         }
-        
     }
 
     public void Equip(RaycastWeapon newWeapon)
     {
+        int weaponSlotIndex = (int)newWeapon.weaponSlot;
         if(weapon)
         {
             Destroy(weapon.gameObject);
         }
         weapon = newWeapon;
         weapon.raycastDestenation = crossHairTarget;
-        weapon.transform.parent = weaponParent;
+        weapon.transform.parent = weaponSlots[weaponSlotIndex];
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
         rigController.Play("equip_" + weapon.weaponName);
