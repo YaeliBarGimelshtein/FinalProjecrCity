@@ -48,9 +48,17 @@ public class ActiveWeapon : MonoBehaviour
             weapon.UpdateWeapon(Time.deltaTime, GetIsHolstered());
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
-                bool isHolstered = GetIsHolstered();
-                rigController.SetBool("holster_weapon", !isHolstered);
+                ToggleActiveWeapon();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetActiveWeapon(WeaponSlot.Primary);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetActiveWeapon(WeaponSlot.Secondary);
         }
     }
 
@@ -67,13 +75,32 @@ public class ActiveWeapon : MonoBehaviour
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         equipped_weapons[weaponSlotIndex] = weapon;
 
-        SetActiveWeapon(weaponSlotIndex);
+        SetActiveWeapon(newWeapon.weaponSlot);
     }
 
-    void SetActiveWeapon(int weaponSlotIndex)
+    void ToggleActiveWeapon()
+    {
+        bool isHolstered = GetIsHolstered();
+        if(isHolstered)
+        {
+            StartCoroutine(ActivateWeapon(activeWeaponIndex));
+        }
+        else
+        {
+            StartCoroutine(HolsterWeapon(activeWeaponIndex));
+        }
+    }
+
+    void SetActiveWeapon(WeaponSlot weaponSlot)
     {
         int holsterIndex = activeWeaponIndex;
-        int activateIndex = weaponSlotIndex;
+        int activateIndex = (int)weaponSlot;
+
+        if(holsterIndex == activateIndex)
+        {
+            holsterIndex = -1;
+        }
+
         StartCoroutine(SwitchWeapon(holsterIndex, activateIndex));
     }
     
