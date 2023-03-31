@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterLocomotion : MonoBehaviour
 {
+    public Animator rigController;
     public float jumpHeight;
     public float gravity;
     public float stepDown;
@@ -14,17 +16,23 @@ public class CharacterLocomotion : MonoBehaviour
 
     private Animator animator;
     private CharacterController characterController;
+    private ActiveWeapon activeWeapon;
+    private ReloadWeapon reloadWeapon;
     private Vector2 input;
 
     private Vector3 rootMotion;
     private Vector3 velocity;
     private bool isJumpimg;
 
+    private int isSprintingParam = Animator.StringToHash("isSprinting");
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        activeWeapon = GetComponent<ActiveWeapon>();
+        reloadWeapon = GetComponent<ReloadWeapon>();
     }
 
     // Update is called once per frame
@@ -36,10 +44,28 @@ public class CharacterLocomotion : MonoBehaviour
         animator.SetFloat("InputX", input.x);
         animator.SetFloat("InputY", input.y);
 
+        UpdateIsSprinting();
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
+    }
+
+    private bool IsSprinting()
+    {
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        bool isFiring = activeWeapon.IsFiring();
+        bool isReloading = reloadWeapon.isReloading;
+        bool isChangingWeapon = activeWeapon.isChangingWeapon;
+        return isSprinting && !isFiring && !isReloading && !isChangingWeapon;
+    }
+
+    private void UpdateIsSprinting()
+    {
+        bool isSprinting = IsSprinting();
+        animator.SetBool(isSprintingParam, isSprinting);
+        rigController.SetBool(isSprintingParam, isSprinting);
     }
 
     private void OnAnimatorMove()
