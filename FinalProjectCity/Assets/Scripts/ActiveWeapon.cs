@@ -15,13 +15,14 @@ public class ActiveWeapon : MonoBehaviour
     public Transform crossHairTarget;
     public Animator rigController;
     public Transform[] weaponSlots;
-    public Cinemachine.CinemachineFreeLook playerCamera;
+    public CharacterAiming characterAiming;
     public AmmoWidget ammoWidget;
     public bool isChangingWeapon; 
 
     RaycastWeapon[] equipped_weapons = new RaycastWeapon[2];
     public int activeWeaponIndex;
-    
+    public bool isHolstered;
+
 
     // Start is called before the first frame update
     void Start()
@@ -62,9 +63,14 @@ public class ActiveWeapon : MonoBehaviour
     {
         var weapon = GetWeapon(activeWeaponIndex);
         bool notSprinting = rigController.GetCurrentAnimatorStateInfo(2).shortNameHash == Animator.StringToHash("notSprinting");
-        if (weapon && notSprinting)
+        isHolstered = GetIsHolstered();
+        if (weapon && notSprinting )
         {
-            weapon.UpdateWeapon(Time.deltaTime, GetIsHolstered());
+            if(!isHolstered)
+            {
+                weapon.UpdateWeapon(Time.deltaTime);
+            }
+            
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
                 ToggleActiveWeapon();
@@ -91,7 +97,7 @@ public class ActiveWeapon : MonoBehaviour
         }
         weapon = newWeapon;
         weapon.raycastDestenation = crossHairTarget;
-        weapon.recoil.playerCamera = playerCamera;
+        weapon.recoil.characterAiming = characterAiming;
         weapon.recoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         equipped_weapons[weaponSlotIndex] = weapon;
@@ -103,7 +109,7 @@ public class ActiveWeapon : MonoBehaviour
 
     void ToggleActiveWeapon()
     {
-        bool isHolstered = GetIsHolstered();
+        isHolstered = GetIsHolstered();
         if(isHolstered)
         {
             StartCoroutine(ActivateWeapon(activeWeaponIndex));

@@ -164,9 +164,9 @@ public class RaycastWeapon : MonoBehaviour
         isFiring = false;
     }
 
-    public void UpdateWeapon(float deltaTime, bool isHolstered)
+    public void UpdateWeapon(float deltaTime)
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !isHolstered)
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             StartFiring();
         }
