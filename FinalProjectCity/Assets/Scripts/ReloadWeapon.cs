@@ -60,7 +60,6 @@ public class ReloadWeapon : MonoBehaviour
     void DetachMagazine()
     {
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
-        Debug.Log(weapon.magazine.gameObject.name + leftHand.name);
         magazineHand = Instantiate(weapon.magazine, leftHand, true);
         weapon.magazine.SetActive(false);
     }
