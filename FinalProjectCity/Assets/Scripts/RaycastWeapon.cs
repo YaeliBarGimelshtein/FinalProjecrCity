@@ -26,6 +26,7 @@ public class RaycastWeapon : MonoBehaviour
 
     public int ammoCount;
     public int clipSize;
+    public float damage = 10;
 
     public Transform raycastOrigin;
     public Transform raycastDestenation;
@@ -132,6 +133,14 @@ public class RaycastWeapon : MonoBehaviour
             if(rb2d)
             {
                 rb2d.AddForceAtPosition(ray.direction * 20, hitInfo.point, ForceMode.Impulse);
+            }
+
+
+            //collision impulse
+            var hitBox = hitInfo.collider.GetComponent<HitBox>();
+            if (hitBox)
+            {
+                hitBox.OnRaycastHit(this, ray.direction);
             }
         }
         
