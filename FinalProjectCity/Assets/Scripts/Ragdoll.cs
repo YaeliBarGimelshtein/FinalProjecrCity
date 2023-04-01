@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Ragdoll : MonoBehaviour
 {
-    Rigidbody[] rigidBodies;
-    Animator animator;
+    private Rigidbody[] rigidBodies;
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {

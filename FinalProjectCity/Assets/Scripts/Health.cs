@@ -8,20 +8,17 @@ public class Health : MonoBehaviour
     public float dieForce;
     [HideInInspector]
     public float currentHealth;
-    Ragdoll ragdoll;
-    SkinnedMeshRenderer skinnedMeshRenderer;
-    UiHealthBar healthBar;
+    private Ragdoll ragdoll;
+    private UiHealthBar healthBar;
+    private AiLocomotion aiLocomotion;
 
-    public float blinkIntensity;
-    public float blinkDuration;
-    float blinkTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         ragdoll = GetComponent<Ragdoll>();
-        skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         healthBar = GetComponentInChildren<UiHealthBar>();
+        aiLocomotion = GetComponent<AiLocomotion>();
 
         currentHealth = maxHealth;
 
@@ -42,7 +39,6 @@ public class Health : MonoBehaviour
         {
             Die(direction);
         }
-        blinkTimer = blinkDuration;
     }
 
     private void Die(Vector3 direction)
@@ -51,14 +47,6 @@ public class Health : MonoBehaviour
         direction.y = 1;
         ragdoll.ApplyForce(direction * dieForce);
         healthBar.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        blinkTimer -= Time.deltaTime;
-        float lerp = Mathf.Clamp01(blinkTimer / blinkDuration);
-        float intensity = lerp * blinkIntensity + 1.0f;
-        skinnedMeshRenderer.material.color = Color.white * 1.0f;
+        aiLocomotion.StopMotion();
     }
 }

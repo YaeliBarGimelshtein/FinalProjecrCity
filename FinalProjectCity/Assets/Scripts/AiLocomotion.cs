@@ -36,4 +36,9 @@ public class AiLocomotion : MonoBehaviour
         
         animator.SetFloat("Speed", agent.velocity.magnitude);
     }
+
+    public void StopMotion()
+    {
+        agent.isStopped = true;
+    }
 }
