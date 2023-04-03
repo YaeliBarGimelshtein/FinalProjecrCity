@@ -5,10 +5,9 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public float maxHealth;
-    public float dieForce;
     [HideInInspector]
     public float currentHealth;
-    private Ragdoll ragdoll;
+    private AiAgent agent;
     private UiHealthBar healthBar;
     private AiLocomotion aiLocomotion;
 
@@ -16,7 +15,7 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ragdoll = GetComponent<Ragdoll>();
+        agent = GetComponent<AiAgent>();
         healthBar = GetComponentInChildren<UiHealthBar>();
         aiLocomotion = GetComponent<AiLocomotion>();
 
@@ -43,10 +42,8 @@ public class Health : MonoBehaviour
 
     private void Die(Vector3 direction)
     {
-        ragdoll.ActivateRagdoll();
-        direction.y = 1;
-        ragdoll.ApplyForce(direction * dieForce);
-        healthBar.gameObject.SetActive(false);
-        aiLocomotion.StopMotion();
+        AiDeathState deathState = agent.stateMachine.GetState(AiStateId.Death) as AiDeathState;
+        deathState.direction = direction;
+        agent.stateMachine.ChangeState(AiStateId.Death);
     }
 }
