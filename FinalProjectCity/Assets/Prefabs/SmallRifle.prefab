@@ -29240,6 +29240,7 @@ GameObject:
   - component: {fileID: 4498259643706676795}
   - component: {fileID: -2851071219402017525}
   - component: {fileID: 6293844249647012352}
+  - component: {fileID: 2679048071355174834}
   m_Layer: 0
   m_Name: SmallRifle
   m_TagString: Untagged
@@ -29294,6 +29295,7 @@ MonoBehaviour:
   weaponName: rifle
   ammoCount: 30
   clipSize: 30
+  damage: 10
   raycastOrigin: {fileID: 4498259643171063436}
   raycastDestenation: {fileID: 0}
   recoil: {fileID: 0}
@@ -29310,9 +29312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9afbce852256c342a510579d66b4c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  characterAiming: {fileID: 0}
   cameraShake: {fileID: 0}
-  rigController: {fileID: 0}
+  animator: {fileID: 0}
   recoilPattern:
   - {x: 5, y: 5}
   - {x: 2, y: 5}
@@ -29322,6 +29324,7 @@ MonoBehaviour:
   - {x: 2, y: 5}
   - {x: 5, y: 5}
   duration: 0.1
+  recoilModifier: 1
 --- !u!114 &6293844249647012352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29375,6 +29378,19 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!65 &2679048071355174834
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498259643706676793}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.19, y: 0.3, z: 0.85}
+  m_Center: {x: 0.06, y: -0.03, z: 0.45}
 --- !u!1 &8367382626476066174
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,10 @@ public class AiFindWeaponState : AiState
 
     public void Update(AiAgent agent)
     {
-        
+        if(agent.weapons.HasWeapon())
+        {
+            agent.weapons.ActivateWeapon();
+        }
     }
 
     public void Exit(AiAgent agent)

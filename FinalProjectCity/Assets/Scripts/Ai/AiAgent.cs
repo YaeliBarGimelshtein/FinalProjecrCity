@@ -5,20 +5,25 @@ using UnityEngine.AI;
 
 public class AiAgent : MonoBehaviour
 {
-    public AiStateMachine stateMachine;
     public AiStateId initialState;
-    public NavMeshAgent navMeshAgent;
     public AiAgentConfig config;
-    public Ragdoll ragdoll;
-    public UiHealthBar healthBar;
-    public Transform playerTransform;
+
+    [HideInInspector] public AiStateMachine stateMachine;
+    [HideInInspector] public NavMeshAgent navMeshAgent;
+    [HideInInspector] public Ragdoll ragdoll;
+    [HideInInspector] public SkinnedMeshRenderer mesh;
+    [HideInInspector] public UiHealthBar healthBar;
+    [HideInInspector] public Transform playerTransform;
+    [HideInInspector] public AiWeapons weapons;
 
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         ragdoll = GetComponent<Ragdoll>();
+        mesh = GetComponentInChildren<SkinnedMeshRenderer>();
         healthBar = GetComponentInChildren<UiHealthBar>();
+        weapons = GetComponent<AiWeapons>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         
         stateMachine = new AiStateMachine(this);
