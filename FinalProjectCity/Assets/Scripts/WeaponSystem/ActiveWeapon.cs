@@ -68,7 +68,16 @@ public class ActiveWeapon : MonoBehaviour
         {
             if(!isHolstered)
             {
-                weapon.UpdateWeapon(Time.deltaTime);
+                if (Input.GetKeyDown(KeyCode.Mouse1) && !weapon.isFiring)
+                {
+                    weapon.StartFiring();
+                }
+
+                if (Input.GetKeyUp(KeyCode.Mouse1))
+                {
+                    weapon.StopFiring();
+                }
+                weapon.UpdateWeapon(Time.deltaTime, crossHairTarget.position);
             }
             
             if(Input.GetKeyDown(KeyCode.Mouse0))
@@ -96,7 +105,6 @@ public class ActiveWeapon : MonoBehaviour
             Destroy(weapon.gameObject);
         }
         weapon = newWeapon;
-        weapon.raycastDestenation = crossHairTarget;
         weapon.recoil.characterAiming = characterAiming;
         weapon.recoil.animator = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);

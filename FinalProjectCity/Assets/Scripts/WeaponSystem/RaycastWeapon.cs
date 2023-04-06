@@ -29,7 +29,6 @@ public class RaycastWeapon : MonoBehaviour
     public float damage = 10;
 
     public Transform raycastOrigin;
-    public Transform raycastDestenation;
     public WeaponRecoil recoil;
     public GameObject magazine;
 
@@ -69,13 +68,13 @@ public class RaycastWeapon : MonoBehaviour
         recoil.Reset();
     }
 
-    public void UpdateFiring(float deltaTime)
+    public void UpdateFiring(float deltaTime, Vector3 target)
     {
         accumulatedTime += deltaTime;
         float fireInterval = 1.0f / fireRate;
         while(accumulatedTime >= 0.0f)
         {
-            FireBullet();
+            FireBullet(target);
             accumulatedTime -= fireInterval;
         }
     }
@@ -148,7 +147,7 @@ public class RaycastWeapon : MonoBehaviour
         
     }
 
-    private void FireBullet()
+    private void FireBullet(Vector3 target)
     {
         if(ammoCount <= 0)
         {
@@ -161,7 +160,7 @@ public class RaycastWeapon : MonoBehaviour
             prticale.Emit(1);
         }
 
-        Vector3 velocity = (raycastDestenation.position - raycastOrigin.position).normalized * bulletSpeed;
+        Vector3 velocity = (target - raycastOrigin.position).normalized * bulletSpeed;
         var bullet = CreateBullet(raycastOrigin.position, velocity);
         bullets.Add(bullet);
 
@@ -173,22 +172,12 @@ public class RaycastWeapon : MonoBehaviour
         isFiring = false;
     }
 
-    public void UpdateWeapon(float deltaTime)
+    public void UpdateWeapon(float deltaTime, Vector3 target)
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            StartFiring();
-        }
-
         if (isFiring)
         {
-            UpdateFiring(Time.deltaTime);
+            UpdateFiring(Time.deltaTime, target);
         }
         UpdateBullets(Time.deltaTime);
-
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            StopFiring();
-        }
     }
 }
