@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class AiWeapons : MonoBehaviour
 {
-    private RaycastWeapon currentWeapon;
+    public enum WeaponState
+    {
+        Holstered,
+        Active,
+        Reloading
+    }
+    public RaycastWeapon currentWeapon;
     private Animator animator;
     private MeshSockets sockets;
     private WeaponIk weaponIk;
     private Transform currentTarget;
-    private bool weaponActive = false;
-    public float inaccuracy = 0.0f;
+    WeaponState weaponState = WeaponState.Holstered;
 
-    private void Start()
+    public float inaccuracy = 0.0f;
+    private GameObject magazineHand;
+
+    public bool IsActive()
+    {
+        return weaponState == WeaponState.Active;
+    }
+
+    public bool IsHolstered()
+    {
+        return weaponState == WeaponState.Holstered;
+    }
+
+    public bool IsReloading()
+    {
+        return weaponState == WeaponState.Reloading;
+    }
+
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         sockets = GetComponent<MeshSockets>();
@@ -21,7 +44,7 @@ public class AiWeapons : MonoBehaviour
 
     private void Update()
     {
-        if(currentTarget && currentWeapon && weaponActive)
+        if(currentTarget && currentWeapon && IsActive())
         {
             Vector3 target = currentTarget.position + weaponIk.targetOffset;
             target += Random.insideUnitSphere * inaccuracy;
@@ -63,7 +86,7 @@ public class AiWeapons : MonoBehaviour
 
         //when animation finishing playing
         weaponIk.SetAimTransform(currentWeapon.raycastOrigin);
-        weaponActive = true;
+        weaponState = WeaponState.Active;
     }
 
     public void DeactivateWeapon()
@@ -73,9 +96,17 @@ public class AiWeapons : MonoBehaviour
         StartCoroutine(HolsterWeapon());
     }
 
+    public void ReloadWeapon()
+    {
+        if(IsActive())
+        {
+            StartCoroutine(ReloadWeaponCoroutine());
+        }
+    }
+
     IEnumerator HolsterWeapon()
     {
-        weaponActive = false;
+        weaponState = WeaponState.Holstered;
         animator.SetBool("Equip", false);
         yield return new WaitForSeconds(0.5f);
         while (animator.GetCurrentAnimatorStateInfo(1).normalizedTime < 1.0f)
@@ -85,7 +116,22 @@ public class AiWeapons : MonoBehaviour
 
         //when animation finishing playing
         weaponIk.SetAimTransform(currentWeapon.raycastOrigin);
-        
+    }
+
+    IEnumerator ReloadWeaponCoroutine()
+    {
+        weaponState = WeaponState.Reloading;
+        animator.SetTrigger("reload_weapon");
+        weaponIk.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        while (animator.GetCurrentAnimatorStateInfo(1).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
+        //when animation finishing playing
+        weaponIk.enabled = true;
+        weaponState = WeaponState.Active;
     }
 
     public void DropWeapon()
@@ -120,5 +166,55 @@ public class AiWeapons : MonoBehaviour
     {
         weaponIk.SetTargetTransform(target);
         currentTarget = target;
+    }
+
+    void OnWeaponAnimationEvent(string eventName)
+    {
+        switch (eventName)
+        {
+            case "detach_magazine":
+                DetachMagazine();
+                break;
+            case "drop_magazine":
+                DropMagazine();
+                break;
+            case "refill_magazine":
+                RefillMagazine();
+                break;
+            case "attach_magazine":
+                AttachMagazine();
+                break;
+        }
+    }
+
+    void DetachMagazine()
+    {
+        var leftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
+        RaycastWeapon weapon = currentWeapon;
+        magazineHand = Instantiate(weapon.magazine, leftHand, true);
+        weapon.magazine.SetActive(false);
+    }
+
+    void DropMagazine()
+    {
+        GameObject droppedMagazine = Instantiate(magazineHand, magazineHand.transform.position, magazineHand.transform.rotation);
+        droppedMagazine.AddComponent<Rigidbody>();
+        droppedMagazine.AddComponent<BoxCollider>();
+        droppedMagazine.transform.localScale = Vector3.one;
+        magazineHand.SetActive(false);
+    }
+
+    void RefillMagazine()
+    {
+        magazineHand.SetActive(true);
+    }
+
+    void AttachMagazine()
+    {
+        RaycastWeapon weapon = currentWeapon;
+        weapon.magazine.SetActive(true);
+        Destroy(magazineHand);
+        weapon.ammoCount = weapon.clipSize;
+        animator.ResetTrigger("reload_weapon");
     }
 }

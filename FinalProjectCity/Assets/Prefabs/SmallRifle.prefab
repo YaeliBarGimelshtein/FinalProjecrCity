@@ -29296,7 +29296,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1025
-  ammoCount: 60
+  ammoCount: 30
   clipSize: 30
   damage: 10
   raycastOrigin: {fileID: 4498259643171063436}
