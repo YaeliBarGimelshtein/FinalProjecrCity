@@ -14,6 +14,7 @@ public class WeaponIk : MonoBehaviour
 {
     public Transform targetTransform;
     public Transform aimTransform;
+    public Vector3 targetOffset;
 
     public int iterations = 10;
     [Range(0,1)]
@@ -38,7 +39,7 @@ public class WeaponIk : MonoBehaviour
 
     Vector3 GetTargetPosition()
     {
-        Vector3 targetDirection = targetTransform.position - aimTransform.position;
+        Vector3 targetDirection = (targetTransform.position + targetOffset) - aimTransform.position;
         Vector3 aimDirection = aimTransform.forward;
         float blendOut = 0.0f;
 

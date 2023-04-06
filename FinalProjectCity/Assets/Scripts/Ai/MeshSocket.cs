@@ -20,7 +20,6 @@ public class MeshSocket : MonoBehaviour
         attachPoint.SetParent(animator.GetBoneTransform(bone));
         attachPoint.localPosition = offset;
         attachPoint.localRotation = Quaternion.Euler(rotation);
-        //attachPoint = transform.GetChild(0);
     }
 
     
