@@ -29143,6 +29143,7 @@ GameObject:
   - component: {fileID: 4498259643706676795}
   - component: {fileID: 4397061206037860009}
   - component: {fileID: 7747505838132033353}
+  - component: {fileID: 497808656025554575}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -29188,7 +29189,7 @@ MonoBehaviour:
   fireRate: 25
   bulletSpeed: 1000
   bulletDrop: 300
-  maxBounces: 3
+  maxBounces: 0
   muzzleFlash:
   - {fileID: 4371943625665080230}
   - {fileID: 4372223684144425728}
@@ -29276,6 +29277,19 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!65 &497808656025554575
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498259643706676793}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.42, y: 0.26, z: 0.22}
+  m_Center: {x: 0, y: 0.07, z: 0.06}
 --- !u!1 &6597205958161173469
 GameObject:
   m_ObjectHideFlags: 0

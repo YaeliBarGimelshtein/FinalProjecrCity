@@ -7,7 +7,6 @@ public class Health : MonoBehaviour
     public float maxHealth;
     [HideInInspector]
     public float currentHealth;
-    private AiAgent agent;
     private UiHealthBar healthBar;
     private AiLocomotion aiLocomotion;
 
@@ -15,7 +14,6 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<AiAgent>();
         healthBar = GetComponentInChildren<UiHealthBar>();
         aiLocomotion = GetComponent<AiLocomotion>();
 
@@ -31,13 +29,17 @@ public class Health : MonoBehaviour
                 hitBox.gameObject.layer = LayerMask.NameToLayer("Hitbox");
             }
         }
-
+        OnStart();
     }
 
     public void TakeDamage(float amount, Vector3 direction)
     {
         currentHealth -= amount;
-        healthBar.SetHealthBarPercentage(currentHealth / maxHealth);
+        if(healthBar)
+        {
+            healthBar.SetHealthBarPercentage(currentHealth / maxHealth);
+        }
+        OnDamage(direction);
         if(currentHealth <= 0.0f)
         {
             Die(direction);
@@ -46,8 +48,21 @@ public class Health : MonoBehaviour
 
     private void Die(Vector3 direction)
     {
-        AiDeathState deathState = agent.stateMachine.GetState(AiStateId.Death) as AiDeathState;
-        deathState.direction = direction;
-        agent.stateMachine.ChangeState(AiStateId.Death);
+        OnDeath(direction);
+    }
+
+    protected virtual void OnStart()
+    {
+
+    }
+
+    protected virtual void OnDeath(Vector3 direction)
+    {
+
+    }
+
+    protected virtual void OnDamage(Vector3 direction)
+    {
+
     }
 }
