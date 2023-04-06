@@ -66,6 +66,28 @@ public class AiWeapons : MonoBehaviour
         weaponActive = true;
     }
 
+    public void DeactivateWeapon()
+    {
+        SetTarget(null);
+        SetFiring(false);
+        StartCoroutine(HolsterWeapon());
+    }
+
+    IEnumerator HolsterWeapon()
+    {
+        weaponActive = false;
+        animator.SetBool("Equip", false);
+        yield return new WaitForSeconds(0.5f);
+        while (animator.GetCurrentAnimatorStateInfo(1).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
+        //when animation finishing playing
+        weaponIk.SetAimTransform(currentWeapon.raycastOrigin);
+        
+    }
+
     public void DropWeapon()
     {
         if(currentWeapon)
@@ -87,6 +109,10 @@ public class AiWeapons : MonoBehaviour
         if(eventName.Equals("equipWeapon"))
         {
             sockets.Attach(currentWeapon.transform, MeshSockets.SocketId.RightHand);
+        }
+        else if(eventName.Equals("holsterWeapon"))
+        {
+            sockets.Attach(currentWeapon.transform, MeshSockets.SocketId.Spine);
         }
     }
 

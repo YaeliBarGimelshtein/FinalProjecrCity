@@ -46,6 +46,11 @@ public class Health : MonoBehaviour
         }
     }
 
+    public bool IsDead()
+    {
+        return currentHealth <= 0.0f;
+    }
+
     private void Die(Vector3 direction)
     {
         OnDeath(direction);
