@@ -37,14 +37,11 @@ public class AiFindWeaponState : AiState
 
         foreach (var weapon in weapons)
         {
-            if(weapon.gameObject.tag.Equals("PickUpRifle"))
+            float distanceToWeapon = Vector3.Distance(agent.transform.position, weapon.transform.position);
+            if (distanceToWeapon < closestDistance)
             {
-                float distanceToWeapon = Vector3.Distance(agent.transform.position, weapon.transform.position);
-                if (distanceToWeapon < closestDistance)
-                {
-                    closestDistance = distanceToWeapon;
-                    closestWeapon = weapon;
-                }
+                closestDistance = distanceToWeapon;
+                closestWeapon = weapon;
             }
         }
         return closestWeapon;
