@@ -26,6 +26,10 @@ public class Health : MonoBehaviour
         {
             HitBox hitBox = rigidBody.gameObject.AddComponent<HitBox>();
             hitBox.health = this;
+            if(hitBox.gameObject != gameObject)
+            {
+                hitBox.gameObject.layer = LayerMask.NameToLayer("Hitbox");
+            }
         }
 
     }

@@ -23,6 +23,7 @@ public class RaycastWeapon : MonoBehaviour
     public ParticleSystem hitEffect;
     public TrailRenderer tracerEffect;
     public string weaponName;
+    public LayerMask layerMask;
 
     public int ammoCount;
     public int clipSize;
@@ -108,7 +109,7 @@ public class RaycastWeapon : MonoBehaviour
         ray.direction = direction;
 
 
-        if (Physics.Raycast(ray, out hitInfo, distance))
+        if (Physics.Raycast(ray, out hitInfo, distance, layerMask))
         {
             hitEffect.transform.position = hitInfo.point;
             hitEffect.transform.forward = hitInfo.normal;

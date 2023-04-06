@@ -29293,6 +29293,9 @@ MonoBehaviour:
   hitEffect: {fileID: 4372903667799360827}
   tracerEffect: {fileID: 2670308020464420087, guid: 38fcc15ab6555be41b7f0165c57f0080, type: 3}
   weaponName: rifle
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
   ammoCount: 55
   clipSize: 30
   damage: 10
