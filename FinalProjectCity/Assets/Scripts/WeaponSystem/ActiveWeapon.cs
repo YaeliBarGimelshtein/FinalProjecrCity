@@ -178,4 +178,16 @@ public class ActiveWeapon : MonoBehaviour
         }
         isChangingWeapon = false;
     }
+
+    public void DropWeapon()
+    {
+        var currentWeapon = GetActiveWeapon();
+        if (currentWeapon)
+        {
+            currentWeapon.transform.SetParent(null);
+            currentWeapon.gameObject.GetComponent<BoxCollider>().enabled = true;
+            currentWeapon.gameObject.AddComponent<Rigidbody>();
+            equipped_weapons[activeWeaponIndex] = null;
+        }
+    }
 }
