@@ -29286,18 +29286,17 @@ MonoBehaviour:
   fireRate: 25
   bulletSpeed: 1000
   bulletDrop: 300
-  maxBounces: 1
+  maxBounces: 0
   muzzleFlash:
   - {fileID: 4371943625665080230}
   - {fileID: 4372223684144425728}
   hitEffect: {fileID: 4372903667799360827}
   tracerEffect: {fileID: 2670308020464420087, guid: 38fcc15ab6555be41b7f0165c57f0080, type: 3}
   weaponName: rifle
-  ammoCount: 30
+  ammoCount: 55
   clipSize: 30
   damage: 10
   raycastOrigin: {fileID: 4498259643171063436}
-  raycastDestenation: {fileID: 0}
   recoil: {fileID: 0}
   magazine: {fileID: 4161797379323231308}
 --- !u!114 &-2851071219402017525

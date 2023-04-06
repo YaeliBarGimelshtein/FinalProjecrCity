@@ -52,14 +52,16 @@ public class WeaponRecoil : MonoBehaviour
         verticalRecoil = recoilPattern[index].y;
 
         index = NextIndex(index);
-
-        animator?.Play("weapon_recoil_" + weaponName, 1, 0.0f);
+        if(animator)
+        {
+            animator.Play("weapon_recoil_" + weaponName, 1, 0.0f);
+        }
     }
     
     // Update is called once per frame
     void Update()
     {
-        if(time > 0 )
+        if(time > 0  && characterAiming)
         {
             characterAiming.yAxis.Value -= (((verticalRecoil / 10) * Time.deltaTime) / duration) * recoilModifier;
             characterAiming.xAxis.Value -= (((horizontalRecoil / 10) * Time.deltaTime) / duration) * recoilModifier;

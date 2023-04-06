@@ -70,7 +70,6 @@ public class RaycastWeapon : MonoBehaviour
 
     public void UpdateFiring(float deltaTime, Vector3 target)
     {
-        accumulatedTime += deltaTime;
         float fireInterval = 1.0f / fireRate;
         while(accumulatedTime >= 0.0f)
         {
@@ -178,6 +177,7 @@ public class RaycastWeapon : MonoBehaviour
         {
             UpdateFiring(Time.deltaTime, target);
         }
+        accumulatedTime += deltaTime;
         UpdateBullets(Time.deltaTime);
     }
 }
