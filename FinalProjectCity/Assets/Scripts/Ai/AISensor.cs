@@ -11,20 +11,52 @@ public class AISensor : MonoBehaviour
     public float height = 1.0f;
     public Color meshColor = Color.red;
     public int scanFrequency = 30;
+    public LayerMask layers;
+    public List<GameObject> objects = new List<GameObject>();
 
+    Collider[] colliders = new Collider[50];
     Mesh mesh;
+    int count;
+    float scanInterval;
+    float scanTimer;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        scanInterval = 1.0f / scanFrequency;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        scanTimer -= Time.deltaTime;
+        if (scanTimer < 0)
+        {
+            scanTimer += scanInterval;
+            Scan();
+        }
     }
+
+    private void Scan()
+    {
+        count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, layers, QueryTriggerInteraction.Collide);
+
+        objects.Clear();
+        for(int i = 0; i < count; ++i)
+        {
+            GameObject obj = colliders[i].gameObject;
+            if (IsInSight(obj))
+            {
+                objects.Add(obj);
+            }
+        }
+    }
+
+    public bool IsInSight(GameObject obj)
+    {
+        return true;
+    }
+
 
     Mesh CreateWedgeMesh()
     {
@@ -115,6 +147,7 @@ public class AISensor : MonoBehaviour
     private void OnValidate()
     {
         mesh = CreateWedgeMesh();
+        scanInterval = 1.0f / scanFrequency;
     }
     private void OnDrawGizmos()
     {
@@ -122,6 +155,17 @@ public class AISensor : MonoBehaviour
         {
             Gizmos.color = meshColor;
             Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
+        }
+        Gizmos.DrawWireSphere(transform.position, distance);
+        for(int i = 0; i < count; ++i)
+        {
+            Gizmos.DrawSphere(colliders[i].transform.position, 0.2f);
+        }
+
+        Gizmos.color = Color.green;
+        foreach(var obj in objects)
+        {
+            Gizmos.DrawSphere(obj.transform.position, 0.2f);
         }
     }
 
