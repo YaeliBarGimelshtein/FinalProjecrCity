@@ -12,7 +12,17 @@ public class AISensor : MonoBehaviour
     public Color meshColor = Color.red;
     public int scanFrequency = 30;
     public LayerMask layers;
+    public LayerMask occlusionLayers;
+    public List<GameObject> Objects
+    {
+        get
+        {
+            objects.RemoveAll(obj => !obj);
+            return objects;
+        }
+    }
     public List<GameObject> objects = new List<GameObject>();
+
 
     Collider[] colliders = new Collider[50];
     Mesh mesh;
@@ -54,6 +64,27 @@ public class AISensor : MonoBehaviour
 
     public bool IsInSight(GameObject obj)
     {
+        Vector3 origin = transform.position;
+        Vector3 dest = obj.transform.position;
+        Vector3 direction = dest - origin;
+        if(direction.y < 0 || direction.y > height)
+        {
+            return false;
+        }
+        direction.y = 0;
+        float deltaAngle = Vector3.Angle(direction, transform.forward);
+        if(deltaAngle > angle)
+        {
+            return false;
+        }
+
+        origin.y += height / 2;
+        dest.y = origin.y;
+        if(Physics.Linecast(origin, dest, occlusionLayers))
+        {
+            return false;
+        }
+
         return true;
     }
 
@@ -156,17 +187,38 @@ public class AISensor : MonoBehaviour
             Gizmos.color = meshColor;
             Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
         }
+        /*
         Gizmos.DrawWireSphere(transform.position, distance);
         for(int i = 0; i < count; ++i)
         {
             Gizmos.DrawSphere(colliders[i].transform.position, 0.2f);
         }
+        */
 
         Gizmos.color = Color.green;
         foreach(var obj in objects)
         {
             Gizmos.DrawSphere(obj.transform.position, 0.2f);
         }
+    }
+
+    public int Filter(GameObject[] buffer, string layerName)
+    {
+        int layer = LayerMask.NameToLayer(layerName);
+        int count = 0;
+        foreach(var obj in objects)
+        {
+            if(obj.layer == layer)
+            {
+                buffer[count++] = obj;
+            }
+
+            if(buffer.Length == count)
+            {
+                break; // buffer is full
+            }
+        }
+        return count;
     }
 
 
