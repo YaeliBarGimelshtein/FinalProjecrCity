@@ -92,7 +92,7 @@ public class AiSensor : MonoBehaviour
         int count = 0;
         foreach(var obj in Objects)
         {
-            if(layerName == "Pickup")
+            if(layerName.Equals("Pickup"))
             {
                 if (obj.tag.Equals("PickUpRifle") && (obj.layer == layer))
                 {

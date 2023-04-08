@@ -74,28 +74,4 @@ public class AiFindWeaponState : AiState
     }
 
 
-
-    /*private WeaponPickup FindClosestWeapon(AiAgent agent)
-    {
-        WeaponPickup[] weapons = Object.FindObjectsOfType<WeaponPickup>();
-        WeaponPickup closestWeapon = null;
-        float closestDistance = float.MaxValue;
-
-        foreach (var weapon in weapons)
-        {
-            if(weapon.gameObject.tag.Equals("PickUpRifle"))
-            {
-                float distanceToWeapon = Vector3.Distance(agent.transform.position, weapon.transform.position);
-                if (distanceToWeapon < closestDistance)
-                {
-                    closestDistance = distanceToWeapon;
-                    closestWeapon = weapon;
-                }
-            }
-        }
-        return closestWeapon;
-    }*/
-
-
-
 }
