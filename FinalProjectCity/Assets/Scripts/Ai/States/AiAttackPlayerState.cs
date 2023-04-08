@@ -21,25 +21,11 @@ public class AiAttackPlayerState : AiState
     {
         agent.navMeshAgent.destination = agent.playerTransform.position;
         ReloadWeapon(agent);
-        UpdateFiring(agent);
         if(agent.playerTransform.GetComponent<Health>().IsDead())
         {
             agent.stateMachine.ChangeState(AiStateId.Idle);
         }
     }
-
-    public void UpdateFiring(AiAgent agent)
-    {
-        if (agent.sensor.IsInSight(agent.playerTransform.gameObject))
-        {
-            agent.weapons.SetFiring(true);
-        }
-        else
-        {
-            agent.weapons.SetFiring(false);
-        }
-    }
-
 
     public void Exit(AiAgent agent)
     {
