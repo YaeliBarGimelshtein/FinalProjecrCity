@@ -14,16 +14,27 @@ public class AiAttackPlayerState : AiState
         agent.weapons.ActivateWeapon();
         agent.weapons.SetTarget(agent.playerTransform);
         agent.navMeshAgent.stoppingDistance = 5.0f;
-        agent.weapons.SetFiring(true);
     }
 
     public void Update(AiAgent agent)
     {
         agent.navMeshAgent.destination = agent.playerTransform.position;
         ReloadWeapon(agent);
+        UpdateFiring(agent);
         if(agent.playerTransform.GetComponent<Health>().IsDead())
         {
             agent.stateMachine.ChangeState(AiStateId.Idle);
+        }
+    }
+    private void UpdateFiring(AiAgent agent)
+    {
+        if (agent.sensor.IsInSight(agent.playerTransform.gameObject))
+        {
+            agent.weapons.SetFiring(true);
+        }
+        else
+        {
+            agent.weapons.SetFiring(false);
         }
     }
 
