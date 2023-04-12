@@ -6,10 +6,13 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class AiSensor : MonoBehaviour
 {
+    public int uniqueID = -1;
+    public static int currentUniqueID = 0;
+
     public float distance = 10;
     public float angle = 30;
     public float height = 1.0f;
-    public Color meshColor = Color.red;
+    public Color meshColor;
     public int scanFrequency = 30;
     public LayerMask layers;
     public LayerMask occlusionLayers;
@@ -21,13 +24,22 @@ public class AiSensor : MonoBehaviour
             return objects;
         }
     }
-    private List<GameObject> objects = new List<GameObject>();
+    public List<GameObject> objects = new List<GameObject>();
 
     Collider[] colliders = new Collider[50];
     Mesh mesh;
     int count;
     float scanInterval;
     float scanTimer;
+
+    private void Awake()
+    {
+        if (uniqueID < 0)
+        {
+            uniqueID = currentUniqueID;
+            currentUniqueID++;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -63,13 +75,22 @@ public class AiSensor : MonoBehaviour
 
     public bool IsInSight(GameObject obj)
     {
-        Vector3 origin = transform.position;
-        Vector3 dest = obj.transform.position;
-        Vector3 direction = dest - origin;
-        if(direction.y < -0.1 || direction.y > height)// direction.y < -0.1 so if the soldier is on diffrent level ground it still picksup
+        if (obj.Equals(gameObject))
         {
             return false;
         }
+
+        Vector3 origin = transform.position;
+        Vector3 dest = obj.transform.position;
+        Vector3 direction = dest - origin;
+
+        //check if object in the hight sight
+        if (direction.y < -0.1 || direction.y > height)
+        {
+            return false;
+        }
+
+        //check if object in the angle sight
         direction.y = 0;
         float deltaAngle = Vector3.Angle(direction, transform.forward);
         if (deltaAngle > angle)
@@ -77,15 +98,17 @@ public class AiSensor : MonoBehaviour
             return false;
         }
 
-        origin.y += height / 2;
+        //check if there is an object blocking the sight
+        origin.y += height - 0.4f;
         dest.y = origin.y;
-        if(Physics.Linecast(origin, dest, occlusionLayers))
+        if (Physics.Linecast(origin, dest, occlusionLayers, QueryTriggerInteraction.Collide))
         {
             return false;
         }
 
         return true;
     }
+
     public int Filter(GameObject[] buffer, string layerName)
     {
         int layer = LayerMask.NameToLayer(layerName);
@@ -98,7 +121,8 @@ public class AiSensor : MonoBehaviour
                 {
                     buffer[count++] = obj;
                 }
-            }else if(obj.layer == layer)
+            }
+            else if(obj.layer == layer)
             {
                 buffer[count++] = obj;
             }
@@ -210,14 +234,10 @@ public class AiSensor : MonoBehaviour
             Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
         }
 
-        
-
-        Gizmos.color = Color.green;
         foreach (var obj in objects)
         {
+            Gizmos.color = Color.green;
             Gizmos.DrawSphere(obj.transform.position, 0.2f);
         }
-
     }
-
 }

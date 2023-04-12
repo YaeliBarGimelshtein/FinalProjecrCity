@@ -36,20 +36,12 @@ public class AiFindWeaponState : AiState
         if (!agent.navMeshAgent.hasPath && !pickup)// added !pickup to fix soldier not taking gun if it is infront of him at the start of the game
         {
             WorldBounds worldBounds = GameObject.FindObjectOfType<WorldBounds>();
-            Vector3 min = worldBounds.min.position;
-            Vector3 max = worldBounds.max.position;
-
-            Vector3 randomPosition = new Vector3(
-                Random.Range(min.x, max.x),
-                Random.Range(min.y, max.y),
-                Random.Range(min.z, max.z)
-                );
-            agent.navMeshAgent.destination = randomPosition;
+            agent.navMeshAgent.destination = worldBounds.RandomPosition();
         }
 
         if(agent.weapons.HasWeapon())
         {
-            agent.stateMachine.ChangeState(AiStateId.AttackPlayer);
+            agent.stateMachine.ChangeState(AiStateId.FindTarger);
         }
     }
 

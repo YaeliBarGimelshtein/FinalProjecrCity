@@ -8,7 +8,8 @@ public enum AiStateId
     Death,
     Idle,
     FindWeapon,
-    AttackPlayer
+    AttackTarget,
+    FindTarger
 }
 
 public interface AiState 

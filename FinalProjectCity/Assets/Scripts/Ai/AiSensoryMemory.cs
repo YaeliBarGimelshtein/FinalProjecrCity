@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class AiMemory
 {
+    public float Age
+    {
+        get { return Time.time - lastSeen; }
+    }
     public GameObject gameObject;
     public Vector3 position;
     public Vector3 direction;
@@ -17,7 +21,7 @@ public class AiMemory
 public class AiSensoryMemory 
 {
     public List<AiMemory> memories = new List<AiMemory>();
-    GameObject[] characters;
+    private GameObject[] characters;
 
     public AiSensoryMemory(int maxPlayers)
     {
@@ -33,8 +37,7 @@ public class AiSensoryMemory
             RefreshMemory(sensor.gameObject, target);
         }
     }
-
-
+    
     public void RefreshMemory(GameObject agent, GameObject target)
     {
         AiMemory memory = FetchMemory(target);
@@ -55,5 +58,12 @@ public class AiSensoryMemory
             memories.Add(memory);
         }
         return memory;
+    }
+
+    public void ForgetMemories(float olderThan)
+    {
+        memories.RemoveAll(m => m.Age > olderThan);
+        memories.RemoveAll(m => !m.gameObject);
+        memories.RemoveAll(m => m.gameObject.GetComponent<Health>().IsDead());
     }
 }
