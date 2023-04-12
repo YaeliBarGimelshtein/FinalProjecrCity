@@ -142,9 +142,10 @@ public class RaycastWeapon : MonoBehaviour
                 hitBox.OnRaycastHit(this, ray.direction);
             }
         }
-        
-        bullet.tracer.transform.position = end;
-        
+        if(bullet != null && bullet.tracer != null)
+        {
+            bullet.tracer.transform.position = end;
+        }
     }
 
     private void FireBullet(Vector3 target)

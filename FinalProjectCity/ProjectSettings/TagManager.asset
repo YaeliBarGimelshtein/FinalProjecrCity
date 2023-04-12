@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - PickUpRifle
+  - Health
+  - Ammo
+  - PickUpPistol
   layers:
   - Default
   - TransparentFX

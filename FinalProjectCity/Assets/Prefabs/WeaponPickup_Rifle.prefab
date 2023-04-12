@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 5521293800595964395}
   - component: {fileID: 5521293800595964396}
   - component: {fileID: 5521293800595964392}
-  - component: {fileID: 5521293800595964391}
+  - component: {fileID: 9139813518008160782}
   m_Layer: 0
   m_Name: WeaponPickup_Rifle
-  m_TagString: Untagged
+  m_TagString: PickUpRifle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,26 +113,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 4498259643706676795, guid: 4db1fd33b98428e47b44a5800de020ad, type: 3}
---- !u!95 &5521293800595964391
-Animator:
-  serializedVersion: 4
+--- !u!114 &9139813518008160782
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5521293800595964397}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 949429be06073ae4dbf192767b4d902a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329411125d7bb16499e4bf86db1ca147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceSpeed: 8
+  bounceAmplitude: 0.05
+  rotationSpeed: 90
 --- !u!1001 &5521293800009821133
 PrefabInstance:
   m_ObjectHideFlags: 0
