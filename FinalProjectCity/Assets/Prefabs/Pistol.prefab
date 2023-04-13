@@ -29201,7 +29201,7 @@ MonoBehaviour:
     m_Bits: 1025
   ammoCount: 15
   clipSize: 15
-  damage: 10
+  damage: 2
   raycastOrigin: {fileID: 4498259643171063436}
   recoil: {fileID: 0}
   magazine: {fileID: 2541471506115295059}

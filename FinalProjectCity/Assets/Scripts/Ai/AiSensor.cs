@@ -109,20 +109,26 @@ public class AiSensor : MonoBehaviour
         return true;
     }
 
-    public int Filter(GameObject[] buffer, string layerName)
+    public int Filter(GameObject[] buffer, string layerName, string tagName = null)
     {
         int layer = LayerMask.NameToLayer(layerName);
         int count = 0;
         foreach(var obj in Objects)
         {
-            if(layerName.Equals("Pickup"))
+            if(tagName != null && !obj.CompareTag(tagName))
             {
-                if (obj.tag.Equals("PickUpRifle") && (obj.layer == layer))
-                {
-                    buffer[count++] = obj;
-                }
+                continue;
             }
-            else if(obj.layer == layer)
+
+            //if(layerName.Equals("Pickup"))
+            //{
+            //    if (obj.tag.Equals("PickUpRifle") && (obj.layer == layer))
+            //    {
+            //        buffer[count++] = obj;
+            //    }
+            //}
+
+            if (obj.layer == layer)
             {
                 buffer[count++] = obj;
             }

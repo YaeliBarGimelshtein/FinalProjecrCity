@@ -33,11 +33,21 @@ public class PlayerHealth : Health
 
     protected override void OnDamage(Vector3 direction)
     {
+        UpdateVignette();
+    }
+
+    protected override void OnHeal(float amount)
+    {
+        UpdateVignette();
+    }
+
+    private void UpdateVignette()
+    {
         Vignette vignette;
-        if(postProcessing.TryGet(out vignette))
+        if (postProcessing.TryGet(out vignette))
         {
             float percent = 1.0f - (currentHealth / maxHealth);
-            vignette.intensity.value = percent * 0.5f;
+            vignette.intensity.value = percent * 0.8f;
         }
     }
 }

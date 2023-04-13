@@ -9,7 +9,8 @@ public enum AiStateId
     Idle,
     FindWeapon,
     AttackTarget,
-    FindTarger
+    FindTarger,
+    FindHealth
 }
 
 public interface AiState 

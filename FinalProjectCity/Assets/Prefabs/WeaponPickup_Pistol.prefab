@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2676703916334175582}
   - component: {fileID: 2676703916334175583}
   - component: {fileID: 8418719761659529449}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WeaponPickup_Pistol
   m_TagString: PickUpPistol
   m_Icon: {fileID: 0}

@@ -17,6 +17,7 @@ public class AiAgent : MonoBehaviour
     [HideInInspector] public AiWeapons weapons;
     [HideInInspector] public AiSensor sensor;
     [HideInInspector] public AiTargetingSystem targetingSystem;
+    [HideInInspector] public Health health;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class AiAgent : MonoBehaviour
         weapons = GetComponent<AiWeapons>();
         sensor = GetComponent<AiSensor>();
         targetingSystem = GetComponent<AiTargetingSystem>();
+        health = GetComponent<Health>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         
         stateMachine = new AiStateMachine(this);
@@ -37,6 +39,7 @@ public class AiAgent : MonoBehaviour
         stateMachine.RegisterState(new AiFindWeaponState());
         stateMachine.RegisterState(new AiAttackTargetState());
         stateMachine.RegisterState(new AiFindTargetState());
+        stateMachine.RegisterState(new AiFindHealthState());
         stateMachine.ChangeState(initialState);
     }
 

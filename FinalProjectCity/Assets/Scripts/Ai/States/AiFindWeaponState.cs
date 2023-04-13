@@ -16,7 +16,7 @@ public class AiFindWeaponState : AiState
     public void Enter(AiAgent agent)
     {
         pickup = null;
-        agent.navMeshAgent.speed = 5;
+        agent.navMeshAgent.speed = agent.config.findWeaponSpeed;
     }
 
     public void Update(AiAgent agent)
@@ -52,7 +52,7 @@ public class AiFindWeaponState : AiState
     
     GameObject FindPickup(AiAgent agent)
     {
-        int count = agent.sensor.Filter(pickups, "Pickup");
+        int count = agent.sensor.Filter(pickups, "Pickup", "PickUpRifle");
         if(count > 0)
         {
             return pickups[0];

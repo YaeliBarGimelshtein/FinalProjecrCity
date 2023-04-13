@@ -29,6 +29,7 @@ public class AiAttackTargetState : AiState
 
         ReloadWeapon(agent);
         UpdateFiring(agent);
+        UpdateLowHealth(agent);
     }
 
     private void UpdateFiring(AiAgent agent)
@@ -55,6 +56,14 @@ public class AiAttackTargetState : AiState
         if(weapon && weapon.ammoCount <= 0)
         {
             agent.weapons.ReloadWeapon();
+        }
+    }
+
+    private void UpdateLowHealth(AiAgent agent)
+    {
+        if(agent.health.IsLowHealth())
+        {
+            agent.stateMachine.ChangeState(AiStateId.FindHealth);
         }
     }
 }

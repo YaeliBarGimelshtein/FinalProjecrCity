@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public float maxHealth;
+    public float maxHealth = 100.0f;
     [HideInInspector]
     public float currentHealth;
+    public float lowHealth = 20.0f;
     private UiHealthBar healthBar;
-    private AiLocomotion aiLocomotion;
 
 
     // Start is called before the first frame update
     void Start()
     {
         healthBar = GetComponentInChildren<UiHealthBar>();
-        aiLocomotion = GetComponent<AiLocomotion>();
 
         currentHealth = maxHealth;
 
@@ -30,6 +29,18 @@ public class Health : MonoBehaviour
             }
         }
         OnStart();
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        currentHealth = Mathf.Min(currentHealth, maxHealth);
+
+        if (healthBar)
+        {
+            healthBar.SetHealthBarPercentage(currentHealth / maxHealth);
+        }
+        OnHeal(amount);
     }
 
     public void TakeDamage(float amount, Vector3 direction)
@@ -51,11 +62,16 @@ public class Health : MonoBehaviour
         return currentHealth <= 0.0f;
     }
 
+    public bool IsLowHealth()
+    {
+        return currentHealth <= lowHealth;
+    }
+
     private void Die(Vector3 direction)
     {
         OnDeath(direction);
     }
-
+    
     protected virtual void OnStart()
     {
 
@@ -67,6 +83,11 @@ public class Health : MonoBehaviour
     }
 
     protected virtual void OnDamage(Vector3 direction)
+    {
+
+    }
+
+    protected virtual void OnHeal(float amount)
     {
 
     }

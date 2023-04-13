@@ -12,4 +12,6 @@ public class AiAgentConfig : ScriptableObject
     public float findTargetSpeed = 5.0f;
     public float attackStoppingDistance = 5.0f;
     public float attackSpeed = 3.0f;
+    public float findHealthSpeed = 6.0f;
+    public float findWeaponSpeed = 5.5f;
 }

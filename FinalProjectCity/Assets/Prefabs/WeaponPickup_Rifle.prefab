@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5521293800595964396}
   - component: {fileID: 5521293800595964392}
   - component: {fileID: 9139813518008160782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WeaponPickup_Rifle
   m_TagString: PickUpRifle
   m_Icon: {fileID: 0}
