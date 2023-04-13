@@ -112,7 +112,10 @@ public class ActiveWeapon : MonoBehaviour
 
         SetActiveWeapon(newWeapon.weaponSlot);
 
-        ammoWidget.Refresh(weapon.ammoCount);
+        if(ammoWidget)
+        {
+            ammoWidget.Refresh(weapon.ammoCount, weapon.clipCount);
+        }
     }
 
     void ToggleActiveWeapon()
@@ -188,6 +191,16 @@ public class ActiveWeapon : MonoBehaviour
             currentWeapon.gameObject.GetComponent<BoxCollider>().enabled = true;
             currentWeapon.gameObject.AddComponent<Rigidbody>();
             equipped_weapons[activeWeaponIndex] = null;
+        }
+    }
+
+    public void RefillAmmo(int clipCount)
+    {
+        var weapon = GetActiveWeapon();
+        if(weapon && ammoWidget)
+        {
+            weapon.clipCount += clipCount;
+            ammoWidget.Refresh(weapon.ammoCount, weapon.clipCount);
         }
     }
 }

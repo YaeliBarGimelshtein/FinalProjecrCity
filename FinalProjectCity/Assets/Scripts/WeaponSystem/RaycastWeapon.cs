@@ -25,8 +25,9 @@ public class RaycastWeapon : MonoBehaviour
     public string weaponName;
     public LayerMask layerMask;
 
-    public int ammoCount;
-    public int clipSize;
+    public int ammoCount = 30;
+    public int clipSize = 30;
+    public int clipCount = 2;
     public float damage = 10;
 
     public Transform raycastOrigin;
@@ -181,5 +182,21 @@ public class RaycastWeapon : MonoBehaviour
         }
         accumulatedTime += deltaTime;
         UpdateBullets(Time.deltaTime);
+    }
+
+    public bool ShouldReload()
+    {
+        return ammoCount == 0 && clipCount > 0;
+    }
+
+    public bool IsLowAmmo()
+    {
+        return ammoCount == 0 && clipCount == 0;
+    }
+
+    public void RefillAmmo()
+    {
+        ammoCount = clipSize;
+        clipCount--;
     }
 }

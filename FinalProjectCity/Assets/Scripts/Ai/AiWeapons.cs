@@ -214,7 +214,7 @@ public class AiWeapons : MonoBehaviour
         RaycastWeapon weapon = currentWeapon;
         weapon.magazine.SetActive(true);
         Destroy(magazineHand);
-        weapon.ammoCount = weapon.clipSize;
+        weapon.RefillAmmo();
         animator.ResetTrigger("reload_weapon");
     }
 }

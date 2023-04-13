@@ -53,7 +53,7 @@ public class AiAttackTargetState : AiState
     private void ReloadWeapon(AiAgent agent)
     {
         var weapon = agent.weapons.currentWeapon;
-        if(weapon && weapon.ammoCount <= 0)
+        if(weapon && weapon.ShouldReload())
         {
             agent.weapons.ReloadWeapon();
         }
