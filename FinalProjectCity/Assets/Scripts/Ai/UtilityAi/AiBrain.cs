@@ -21,13 +21,48 @@ public class AiBrain : MonoBehaviour
         
     }
 
-    public void DecideBestAction(UtilityAiAction[] actionsAvailabe)
+    // Loop through all the available actions 
+    // Give me the highest scoring action
+    public void DecideBestAction(UtilityAiAction[] actionsAvailable)
     {
+        float score = 0f;
+        int nextBestActionIndex = 0;
+        for (int i = 0; i < actionsAvailable.Length; i++)
+        {
+            if (ScoreAction(actionsAvailable[i]) > score)
+            {
+                nextBestActionIndex = i;
+                score = actionsAvailable[i].Score;
+            }
+        }
 
+        BestAction = actionsAvailable[nextBestActionIndex];
     }
 
-    public void ScoreAction(UtilityAiAction action)
+    // Loop through all the considerations of the action
+    // Score all the considerations
+    // Average the consideration scores ==> overall action score
+    public float ScoreAction(UtilityAiAction action)
     {
+        float score = 1f;
+        for (int i = 0; i < action.considerations.Length; i++)
+        {
+            float considerationScore = action.considerations[i].ScoreConsideration();
+            score *= considerationScore;
 
+            if (score == 0)
+            {
+                action.Score = 0;
+                return action.Score; // No point computing further
+            }
+        }
+
+        // Averaging scheme of overall score
+        float originalScore = score;
+        float modFactor = 1 - (1 / action.considerations.Length);
+        float makeupValue = (1 - originalScore) * modFactor;
+        action.Score = originalScore + (makeupValue * originalScore);
+
+        return action.Score;
     }
 }
