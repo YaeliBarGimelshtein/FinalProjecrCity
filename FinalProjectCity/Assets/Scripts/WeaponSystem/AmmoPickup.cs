@@ -12,12 +12,14 @@ public class AmmoPickup : MonoBehaviour
         if (activeWeapon)
         {
             activeWeapon.RefillAmmo(clipAmount);
+            Destroy(gameObject);
         }
 
-        //AiWeapons aiWeapons = other.gameObject.GetComponent<AiWeapons>();
-        //if (aiWeapons)
-        //{
-            
-        //}
+        AiWeapons aiWeapons = other.gameObject.GetComponent<AiWeapons>();
+        if (aiWeapons)
+        {
+            aiWeapons.RefillAmmo(clipAmount);
+            Destroy(gameObject);
+        }
     }
 }

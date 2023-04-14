@@ -217,4 +217,23 @@ public class AiWeapons : MonoBehaviour
         weapon.RefillAmmo();
         animator.ResetTrigger("reload_weapon");
     }
+
+    public void RefillAmmo(int clipCount)
+    {
+        var weapon = currentWeapon;
+        if (weapon)
+        {
+            weapon.clipCount += clipCount;
+        }
+    }
+
+    public bool IsLowAmmo()
+    {
+        var weapon = currentWeapon;
+        if (weapon)
+        {
+            return weapon.IsLowAmmo();
+        }
+        return false;
+    }
 }

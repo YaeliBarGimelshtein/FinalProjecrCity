@@ -30,6 +30,7 @@ public class AiAttackTargetState : AiState
         ReloadWeapon(agent);
         UpdateFiring(agent);
         UpdateLowHealth(agent);
+        UpdateLowAmmo(agent);
     }
 
     private void UpdateFiring(AiAgent agent)
@@ -64,6 +65,14 @@ public class AiAttackTargetState : AiState
         if(agent.health.IsLowHealth())
         {
             agent.stateMachine.ChangeState(AiStateId.FindHealth);
+        }
+    }
+
+    private void UpdateLowAmmo(AiAgent agent)
+    {
+        if (agent.weapons.IsLowAmmo())
+        {
+            agent.stateMachine.ChangeState(AiStateId.FindAmmo);
         }
     }
 }
