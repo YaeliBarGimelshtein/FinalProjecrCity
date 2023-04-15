@@ -7,8 +7,14 @@ using UnityEngine;
 
 public class FindTargetConsideration : UtilityAiConsideration
 {
-    public override float ScoreConsideration()
+    public override float ScoreConsideration(UtilityAiAgent agent)
     {
-        return 0.2f;
+        if(agent.weapons.HasWeapon())
+        {
+            return 0.75f;
+        }
+        //Score = responseCurve.Evaluate(Mathf.Clamp01(agent.he / agent.health.maxHealth));
+        return 0f;
     }
 }
+

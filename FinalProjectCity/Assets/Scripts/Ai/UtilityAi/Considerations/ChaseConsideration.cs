@@ -7,8 +7,11 @@ using UnityEngine;
 
 public class ChaseConsideration : UtilityAiConsideration
 {
-    public override float ScoreConsideration()
+    [SerializeField] private AnimationCurve responseCurve;
+    public override float ScoreConsideration(UtilityAiAgent agent)
     {
-        return 0.2f;
+
+        //Score = responseCurve.Evaluate(Mathf.Clamp01(agent.he / agent.health.maxHealth));
+        return 0.1f;
     }
 }

@@ -28,6 +28,7 @@ public class RaycastWeapon : MonoBehaviour
     public int ammoCount = 30;
     public int clipSize = 30;
     public int clipCount = 2;
+    public int maxAmmoCount = 90;
     public float damage = 10;
 
     public Transform raycastOrigin;

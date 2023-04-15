@@ -17,5 +17,5 @@ public abstract class UtilityAiConsideration : ScriptableObject
         score = 0.0f;
     }
 
-    public abstract float ScoreConsideration();
+    public abstract float ScoreConsideration(UtilityAiAgent agent);
 }

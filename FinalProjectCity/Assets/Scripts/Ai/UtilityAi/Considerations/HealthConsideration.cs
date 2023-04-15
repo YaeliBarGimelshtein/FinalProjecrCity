@@ -6,9 +6,9 @@ using UnityEngine;
 public class HealthConsideration : UtilityAiConsideration
 {
     [SerializeField] private AnimationCurve responseCurve;
-    public override float ScoreConsideration()
+    public override float ScoreConsideration(UtilityAiAgent agent)
     {
-        //Score = responseCurve.Evaluate(Mathf.Clamp01(UtilityAiAgent.))
-        return 0.5f;
+        Score = responseCurve.Evaluate(Mathf.Clamp01(agent.health.currentHealth / agent.health.maxHealth));
+        return Score;
     }
 }

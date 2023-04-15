@@ -7,8 +7,17 @@ using UnityEngine;
 
 public class DeathConsideration : UtilityAiConsideration
 {
-    public override float ScoreConsideration()
+    [SerializeField] private AnimationCurve responseCurve;
+    public override float ScoreConsideration(UtilityAiAgent agent)
     {
-        return 0.2f;
+        if(agent.health.currentHealth == 0)
+        {
+            return 1f;
+        }
+        else
+        {
+            return 0f;
+        }
     }
 }
+
