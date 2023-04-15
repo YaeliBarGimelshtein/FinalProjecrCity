@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe736b0be784054d8dc8a3d846e285e, type: 3}
   m_Name: AttackTargetAction
   m_EditorClassIdentifier: 
-  Name: 
-  considerations: []
+  Name: AttackTarget
+  considerations:
+  - {fileID: 11400000, guid: 02cc35658f471e94c843ed65dcde0f57, type: 2}

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a01e5129ccea444bb3e8a644d44513, type: 3}
   m_Name: FindWeaponAction
   m_EditorClassIdentifier: 
-  Name: 
-  considerations: []
+  Name: FindWeapon
+  considerations:
+  - {fileID: 11400000, guid: 25395fe348a237342aa02a70026a2e7f, type: 2}

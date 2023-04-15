@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2930b1411c5f3f419cee5cb313f87b9, type: 3}
   m_Name: AttackConsideration
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Attack

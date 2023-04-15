@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33b103bb0476f44bbb930661e290467, type: 3}
   m_Name: FindWeaponConsideration
   m_EditorClassIdentifier: 
-  Name: 
+  Name: FindWeapon

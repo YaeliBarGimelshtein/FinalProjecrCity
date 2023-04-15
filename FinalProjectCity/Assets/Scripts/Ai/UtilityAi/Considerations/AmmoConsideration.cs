@@ -9,6 +9,6 @@ public class AmmoConsideration : UtilityAiConsideration
 {
     public override float ScoreConsideration()
     {
-        return 0.9f;
+        return 0.5f;
     }
 }

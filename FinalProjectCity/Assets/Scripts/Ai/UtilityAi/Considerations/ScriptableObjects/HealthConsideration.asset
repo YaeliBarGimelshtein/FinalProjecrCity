@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79035f47ecb7a624b83ca1055cb13ea1, type: 3}
   m_Name: HealthConsideration
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Health
+  responseCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

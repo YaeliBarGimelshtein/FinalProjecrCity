@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594fb29afb7409c479a6113bf4aef111, type: 3}
   m_Name: DeathAction
   m_EditorClassIdentifier: 
-  Name: 
-  considerations: []
+  Name: Die
+  considerations:
+  - {fileID: 11400000, guid: 37f0985f7f86f0c49a2158ae831cfbc3, type: 2}
+  direction: {x: 0, y: 1, z: 0}
