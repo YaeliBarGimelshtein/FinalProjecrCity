@@ -18,5 +18,6 @@ public abstract class UtilityAiAction : ScriptableObject
         score = 0.0f;
     }
 
-    public abstract void Execute();
+    public abstract void Execute(UtilityAiAgent agent);
+
 }

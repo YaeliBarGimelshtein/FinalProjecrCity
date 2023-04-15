@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AiBrain : MonoBehaviour
 {
+    public bool finishedDeciding { get; set; }
+
     public UtilityAiAction BestAction { get; set; }
 
     private UtilityAiAgent agent;
@@ -18,7 +20,10 @@ public class AiBrain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(BestAction is null)
+        {
+            DecideBestAction(agent.actionsAvailable);
+        }
     }
 
     // Loop through all the available actions 
@@ -37,6 +42,7 @@ public class AiBrain : MonoBehaviour
         }
 
         BestAction = actionsAvailable[nextBestActionIndex];
+        finishedDeciding = true;
     }
 
     // Loop through all the considerations of the action

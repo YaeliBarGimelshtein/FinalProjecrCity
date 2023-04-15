@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FindAmmoAction : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+[CreateAssetMenu(fileName = "FindAmmoAction", menuName = "Ai/UtilityAI/Actions/FindAmmoAction")]
+public class FindAmmoAction : UtilityAiAction
+{
+
+    public override void Execute(UtilityAiAgent agent)
     {
-        
+        agent.DoFindAmmo(3);
     }
 }

@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackTargetAction : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+[CreateAssetMenu(fileName = "AttackTargetAction", menuName = "Ai/UtilityAI/Actions/AttackTargetAction")]
+public class AttackTargetAction : UtilityAiAction
+{
+
+    public override void Execute(UtilityAiAgent agent)
     {
-        
+        agent.DoAttackTarget(3);
     }
 }
