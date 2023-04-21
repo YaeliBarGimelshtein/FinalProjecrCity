@@ -109,7 +109,6 @@ public class UtilityAiAgent : MonoBehaviour
             yield return new WaitForSeconds(1);
             counter--;
         }
-        Debug.Log("I just attacked target");
         //Logic to attacked target
 
         if (targetingSystem.HasTarget)
@@ -140,7 +139,6 @@ public class UtilityAiAgent : MonoBehaviour
             yield return new WaitForSeconds(1);
             counter--;
         }
-        Debug.Log("I just found ammo");
         //Logic to find ammo
         // Find pickup
         if (!pickup)
@@ -179,7 +177,6 @@ public class UtilityAiAgent : MonoBehaviour
             yield return new WaitForSeconds(1);
             counter--;
         }
-        Debug.Log("I just found Health");
         //Logic to find Health
         // Find pickup
         if (!pickup)
@@ -218,7 +215,6 @@ public class UtilityAiAgent : MonoBehaviour
             yield return new WaitForSeconds(1);
             counter--;
         }
-        Debug.Log("I just found Target");
         //Logic to find Target
         // Wander
         if (!navMeshAgent.hasPath)
@@ -245,8 +241,7 @@ public class UtilityAiAgent : MonoBehaviour
             yield return new WaitForSeconds(1);
             counter--;
         }
-        Debug.Log("I just found Weapon");
-        //Logic to find ammo
+        //Logic to find Weapon
         // Find pickup
         if (!pickup)
         {

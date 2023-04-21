@@ -7,14 +7,17 @@ using UnityEngine;
 
 public class AmmoConsideration : UtilityAiConsideration
 {
-    [SerializeField] private AnimationCurve responseCurve;
+
     public override float ScoreConsideration(UtilityAiAgent agent)
     {
+        
         if (agent.weapons.HasWeapon())
         {
             int ammoCount = agent.weapons.currentWeapon.clipCount * 30 + agent.weapons.currentWeapon.ammoCount;
-            Score = responseCurve.Evaluate(Mathf.Clamp01(ammoCount / agent.weapons.currentWeapon.maxAmmoCount));//max ammo is 90
-            return Score;
+            if(ammoCount <= 0)
+            {
+                return 0.85f;
+            }
         }
         return 0f;
     }

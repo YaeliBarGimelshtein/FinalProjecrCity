@@ -18,5 +18,6 @@ public class DeathAction : UtilityAiAction
         agent.healthBar.gameObject.SetActive(false);
         agent.mesh.updateWhenOffscreen = true;
         agent.weapons.DropWeapon();
+        agent.navMeshAgent.enabled = false;
     }
 }

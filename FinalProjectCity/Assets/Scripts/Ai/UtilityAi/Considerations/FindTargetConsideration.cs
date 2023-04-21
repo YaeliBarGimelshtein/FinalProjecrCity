@@ -13,7 +13,6 @@ public class FindTargetConsideration : UtilityAiConsideration
         {
             return 0.75f;
         }
-        //Score = responseCurve.Evaluate(Mathf.Clamp01(agent.he / agent.health.maxHealth));
         return 0f;
     }
 }

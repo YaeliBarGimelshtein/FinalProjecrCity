@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FindWeaponConsideration", menuName = "Ai/UtilityAI/Considerations/Find Weapon Consideration")]
 public class FindWeaponConsideration : UtilityAiConsideration
 {
-    [SerializeField] private AnimationCurve responseCurve;
     public override float ScoreConsideration(UtilityAiAgent agent)
     {
         if (agent.weapons.HasWeapon())

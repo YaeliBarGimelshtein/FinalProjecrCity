@@ -7,10 +7,9 @@ using UnityEngine;
 
 public class DeathConsideration : UtilityAiConsideration
 {
-    [SerializeField] private AnimationCurve responseCurve;
     public override float ScoreConsideration(UtilityAiAgent agent)
     {
-        if(agent.health.currentHealth == 0)
+        if(agent.health.currentHealth <= 0)
         {
             return 1f;
         }

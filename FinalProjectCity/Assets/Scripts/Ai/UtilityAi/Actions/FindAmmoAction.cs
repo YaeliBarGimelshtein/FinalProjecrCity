@@ -9,6 +9,7 @@ public class FindAmmoAction : UtilityAiAction
 
     public override void Execute(UtilityAiAgent agent)
     {
+        Debug.Log("In  FindAmmo");
         agent.DoFindAmmo(3);
     }
 }

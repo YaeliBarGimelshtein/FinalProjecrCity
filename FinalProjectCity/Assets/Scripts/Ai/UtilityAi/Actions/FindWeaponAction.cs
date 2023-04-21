@@ -9,6 +9,7 @@ public class FindWeaponAction : UtilityAiAction
 
     public override void Execute(UtilityAiAgent agent)
     {
+        Debug.Log("In  FindWeapon");
         agent.DoFindWeapon(3);
     }
 }

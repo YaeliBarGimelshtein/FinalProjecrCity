@@ -9,6 +9,7 @@ public class FindHealthAction : UtilityAiAction
 
     public override void Execute(UtilityAiAgent agent)
     {
+        Debug.Log("In  FindHealth");
         agent.DoFindHealth(3);
     }
 }

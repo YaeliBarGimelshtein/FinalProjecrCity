@@ -9,6 +9,7 @@ public class FindTargetAction : UtilityAiAction
 
     public override void Execute(UtilityAiAgent agent)
     {
+        Debug.Log("In  FindTarget");
         agent.DoFindTarget(3);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +14,16 @@ public class AiHealth : Health
 
     protected override void OnDeath(Vector3 direction)
     {
-        AiDeathState deathState = agent.stateMachine.GetState(AiStateId.Death) as AiDeathState;
-        deathState.direction = direction;
-        agent.stateMachine.ChangeState(AiStateId.Death);
+        try
+        {
+            AiDeathState deathState = agent.stateMachine.GetState(AiStateId.Death) as AiDeathState;
+            deathState.direction = direction;
+            agent.stateMachine.ChangeState(AiStateId.Death);
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
     protected override void OnDamage(Vector3 direction)

@@ -9,6 +9,7 @@ public class AttackTargetAction : UtilityAiAction
 
     public override void Execute(UtilityAiAgent agent)
     {
+        Debug.Log("In Attack");
         agent.DoAttackTarget(3);
     }
 }
