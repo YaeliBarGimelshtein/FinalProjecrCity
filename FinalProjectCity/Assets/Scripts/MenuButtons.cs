@@ -6,26 +6,15 @@ using UnityEngine.SceneManagement;
 public class MenuButtons : MonoBehaviour
 {
     public TMPro.TMP_Text introText;
-    public GameMode gameMode;
+    public GameMode.GameModes gameMode;
 
     private void Start()
     {
-        switch (gameMode.mode)
-        {
-            case GameMode.GameModes.StartMenu:
-                introText.text = "Everyone fled the city in fear\nFind and kill all soildiers to win";
-                break;
-            case GameMode.GameModes.PlayerWin:
-                introText.text = "You win!";
-                break;
-            case GameMode.GameModes.PlayerLoose:
-                introText.text = "You loose!";
-                break;
-            default:
-                break;
-        }
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        UpdateIntroText();
     }
-
+    
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -34,5 +23,29 @@ public class MenuButtons : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void UpdateIntroText()
+    {
+        var singelton = GameObject.FindObjectOfType<GameMode>();
+        if (singelton)
+        {
+            gameMode = singelton.mode;
+            switch (gameMode)
+            {
+                case GameMode.GameModes.StartMenu:
+                    introText.text = "Everyone fled the city in fear\nFind and kill all soildiers to win";
+                    break;
+                case GameMode.GameModes.PlayerWin:
+                    introText.text = "You win!";
+                    Debug.Log("you win in UpdateIntroText");
+                    break;
+                case GameMode.GameModes.PlayerLoose:
+                    introText.text = "You loose!";
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

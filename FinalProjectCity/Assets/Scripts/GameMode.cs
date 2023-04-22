@@ -13,7 +13,7 @@ public class GameMode : MonoBehaviour
     }
     
     public GameModes mode;
-    private int deadSoldiers;
+    private int deadSoldiers = 0;
     public int DeadSoldiers
     {
         get { return deadSoldiers; }

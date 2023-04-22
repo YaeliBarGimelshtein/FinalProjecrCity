@@ -409,7 +409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Everyone fled the city in fear \nFind and kill all soildiers to win"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ad2e3c527b435c47bb5fd09b6d50bac, type: 2}
   m_sharedMaterial: {fileID: -5407676541708367184, guid: 6ad2e3c527b435c47bb5fd09b6d50bac, type: 2}
