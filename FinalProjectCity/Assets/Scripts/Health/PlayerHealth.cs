@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : Health
 {
@@ -29,6 +30,13 @@ public class PlayerHealth : Health
         weapons.DropWeapon();
         aiming.enabled = false;
         cameraManager.EnableKillCam();
+
+        var singelton = GameObject.FindObjectOfType<GameMode>();
+        if(singelton)
+        {
+            singelton.mode = GameMode.GameModes.PlayerLoose;
+        }
+        SceneManager.LoadScene(0);
     }
 
     protected override void OnDamage(Vector3 direction)

@@ -19,6 +19,12 @@ public class AiHealth : Health
             AiDeathState deathState = agent.stateMachine.GetState(AiStateId.Death) as AiDeathState;
             deathState.direction = direction;
             agent.stateMachine.ChangeState(AiStateId.Death);
+
+            var singelton = GameObject.FindObjectOfType<GameMode>();
+            if (singelton)
+            {
+                singelton.DeadSoldiers += 1;
+            }
         }
         catch (Exception ex)
         {
