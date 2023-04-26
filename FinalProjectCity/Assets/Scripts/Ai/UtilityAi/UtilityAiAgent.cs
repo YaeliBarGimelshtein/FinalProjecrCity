@@ -77,48 +77,6 @@ public class UtilityAiAgent : MonoBehaviour
 
     #region Coroutine
 
-    
-
-
-    public void DoFindAmmo(int time)
-    {
-        StartCoroutine(FindAmmoCoroutine(time));
-
-    }
-    IEnumerator FindAmmoCoroutine(int time)
-    {
-        int counter = time;
-        while (counter > 0)
-        {
-            yield return new WaitForSeconds(1);
-            counter--;
-        }
-        //Logic to find ammo
-        // Find pickup
-        if (!pickup)
-        {
-            pickup = FindPickup("Ammo");
-
-            if (pickup)
-            {
-                Debug.Log("In  FindAmmo in pickup");
-                CollectPickup(pickup);
-            }
-        }
-
-        // Wander
-        if (!navMeshAgent.hasPath && !pickup)// added !pickup to fix soldier not taking gun if it is infront of him at the start of the game
-        {
-            Debug.Log("In  FindAmmo in wander");
-            WorldBounds worldBounds = GameObject.FindObjectOfType<WorldBounds>();
-            navMeshAgent.destination = worldBounds.RandomPosition();
-        }
-
-        //Decide our new best action after you finish this one
-        OnFinisherdAction();
-    }
-
-
 
 
     public void DoFindHealth(int time)
