@@ -85,8 +85,11 @@ public class AiWeapons : MonoBehaviour
         }
 
         //when animation finishing playing
-        weaponIk.SetAimTransform(currentWeapon.raycastOrigin);
-        weaponState = WeaponState.Active;
+        if (currentWeapon)
+        {
+            weaponIk.SetAimTransform(currentWeapon.raycastOrigin);
+            weaponState = WeaponState.Active;
+        }
     }
 
     public void DeactivateWeapon()
@@ -115,7 +118,10 @@ public class AiWeapons : MonoBehaviour
         }
 
         //when animation finishing playing
-        weaponIk.SetAimTransform(currentWeapon.raycastOrigin);
+        if (currentWeapon)
+        {
+            weaponIk.SetAimTransform(currentWeapon.raycastOrigin);
+        }
     }
 
     IEnumerator ReloadWeaponCoroutine()
@@ -128,10 +134,12 @@ public class AiWeapons : MonoBehaviour
         {
             yield return null;
         }
-
-        //when animation finishing playing
-        weaponIk.enabled = true;
-        weaponState = WeaponState.Active;
+        if (currentWeapon)
+        {
+            //when animation finishing playing
+            weaponIk.enabled = true;
+            weaponState = WeaponState.Active;
+        }
     }
 
     public void DropWeapon()
