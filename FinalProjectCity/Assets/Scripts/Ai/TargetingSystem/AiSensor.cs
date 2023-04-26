@@ -85,7 +85,7 @@ public class AiSensor : MonoBehaviour
         Vector3 direction = dest - origin;
 
         //check if object in the hight sight
-        if (direction.y < -0.1 || direction.y > height)
+        if (direction.y < -0.3 || direction.y > height)
         {
             return false;
         }

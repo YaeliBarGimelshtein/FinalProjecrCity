@@ -11,7 +11,7 @@ public class UtilityAiAgent : MonoBehaviour
 
 
     public AiAgentConfig config;
-    GameObject pickup;
+    public GameObject pickup;
     GameObject[] pickups = new GameObject[1];
 
     [HideInInspector] public AiStateMachine stateMachine;
@@ -57,7 +57,7 @@ public class UtilityAiAgent : MonoBehaviour
         aiBrain.DecideBestAction(actionsAvailable);
     }
 
-    GameObject FindPickup(string filter)
+    public GameObject FindPickup(string filter)
     {
         int count = sensor.Filter(pickups, "Pickup", filter);
         if (count > 0)
@@ -67,63 +67,17 @@ public class UtilityAiAgent : MonoBehaviour
         return null;
     }
 
-    void CollectPickup(GameObject pickup)
+    public void CollectPickup(GameObject pickup)
     {
         navMeshAgent.destination = pickup.transform.position;
     }
 
     
-    private void ReloadWeapon()
-    {
-        var weapon = weapons.currentWeapon;
-        if (weapon && weapon.ShouldReload())
-        {
-            weapons.ReloadWeapon();
-        }
-    }
-    private void UpdateFiring()
-    {
-        if (targetingSystem.TargetInSight)
-        {
-            weapons.SetFiring(true);
-        }
-        else
-        {
-            weapons.SetFiring(false);
-        }
-    }
 
 
     #region Coroutine
 
-    public void DoAttackTarget(int time)
-    {
-        StartCoroutine(AttackTargetCoroutine(time));
-
-    }
-    IEnumerator AttackTargetCoroutine(int time)
-    {
-        int counter = time;
-        while (counter > 0)
-        {
-            yield return new WaitForSeconds(1);
-            counter--;
-        }
-        //Logic to attacked target
-
-        if (targetingSystem.HasTarget)
-        {
-            weapons.SetTarget(targetingSystem.Target.transform);
-            navMeshAgent.destination = targetingSystem.TargetPosition;
-
-            ReloadWeapon();
-            UpdateFiring();
-        }
-        
-        //Decide our new best action after you finish this one
-        OnFinisherdAction();
-    }
-
+    
 
 
     public void DoFindAmmo(int time)
@@ -147,6 +101,7 @@ public class UtilityAiAgent : MonoBehaviour
 
             if (pickup)
             {
+                Debug.Log("In  FindAmmo in pickup");
                 CollectPickup(pickup);
             }
         }
@@ -154,6 +109,7 @@ public class UtilityAiAgent : MonoBehaviour
         // Wander
         if (!navMeshAgent.hasPath && !pickup)// added !pickup to fix soldier not taking gun if it is infront of him at the start of the game
         {
+            Debug.Log("In  FindAmmo in wander");
             WorldBounds worldBounds = GameObject.FindObjectOfType<WorldBounds>();
             navMeshAgent.destination = worldBounds.RandomPosition();
         }

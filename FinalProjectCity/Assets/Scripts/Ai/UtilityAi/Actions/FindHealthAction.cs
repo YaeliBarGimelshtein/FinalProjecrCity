@@ -10,6 +10,12 @@ public class FindHealthAction : UtilityAiAction
     public override void Execute(UtilityAiAgent agent)
     {
         Debug.Log("In  FindHealth");
+        if (!agent.weapons.IsHolstered())
+        {
+            agent.weapons.DeactivateWeapon();
+            agent.navMeshAgent.stoppingDistance = 0.0f;
+            agent.navMeshAgent.speed = agent.config.findHealthSpeed;
+        }
         agent.DoFindHealth(3);
     }
 }

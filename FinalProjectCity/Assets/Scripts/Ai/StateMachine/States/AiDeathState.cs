@@ -19,6 +19,7 @@ public class AiDeathState : AiState
         agent.healthBar.gameObject.SetActive(false);
         agent.mesh.updateWhenOffscreen = true;
         agent.weapons.DropWeapon();
+        agent.navMeshAgent.enabled = false;
     }
 
     public void Update(AiAgent agent)
