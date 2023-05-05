@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
+#if UNITY_EDITOR
 using UnityEditor.Animations;
+#endif
+
+
 
 public class ActiveWeapon : MonoBehaviour
 {
