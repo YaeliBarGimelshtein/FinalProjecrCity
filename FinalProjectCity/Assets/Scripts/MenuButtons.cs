@@ -7,6 +7,8 @@ public class MenuButtons : MonoBehaviour
 {
     public TMPro.TMP_Text introText;
     public GameMode.GameModes gameMode;
+    public float audioVolume;
+    public AudioSource audio;
 
     private void Start()
     {
@@ -23,6 +25,19 @@ public class MenuButtons : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void OnAudioClick()
+    {
+        if(audio.volume != 0)
+        {
+            audioVolume = audio.volume;
+            audio.volume = 0;
+        }
+        else
+        {
+            audio.volume = audioVolume;
+        }
     }
 
     public void UpdateIntroText()
