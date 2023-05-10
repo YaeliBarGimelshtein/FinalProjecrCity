@@ -40,6 +40,9 @@ public class CharacterLocomotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
 
@@ -51,6 +54,11 @@ public class CharacterLocomotion : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
